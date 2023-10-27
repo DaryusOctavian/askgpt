@@ -34,7 +34,7 @@ func Parse(response *http.Response) string {
 	if err != nil {
 		fmt.Println("failed to read response body :/")
 		fmt.Println(err)
-		os.Exit(5)
+		os.Exit(6)
 	}
 
 	var parsed ResponsePayload
@@ -43,7 +43,7 @@ func Parse(response *http.Response) string {
 		fmt.Println("failed to decode response json :/")
 		fmt.Println(err)
 		fmt.Println("recieved json:\n" + string(textJSON))
-		os.Exit(6)
+		os.Exit(7)
 	}
 
 	return parsed.Choices[0].Message.Content

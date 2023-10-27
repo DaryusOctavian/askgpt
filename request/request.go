@@ -18,16 +18,8 @@ type RequestPayload struct {
 	Messages []Message `json:"messages"`
 }
 
-func Ask(text string) string {
-	keyFile, err := os.ReadFile("key.txt")
-	if err != nil {
-		fmt.Println("failed to read key from key.txt :/")
-		fmt.Println(err)
-		os.Exit(1)
-	}
-
+func Ask(text string, key string) string {
 	url := "https://api.openai.com/v1/chat/completions"
-	key := string(keyFile)
 
 	payload := RequestPayload{
 		Model:    "gpt-4",
@@ -38,7 +30,7 @@ func Ask(text string) string {
 	if err != nil {
 		fmt.Println("json creation failed :/")
 		fmt.Println(err)
-		os.Exit(2)
+		os.Exit(3)
 	}
 
 	client := &http.Client{}
@@ -46,7 +38,7 @@ func Ask(text string) string {
 	if err != nil {
 		fmt.Println("request creation failed :/")
 		fmt.Println(err)
-		os.Exit(3)
+		os.Exit(4)
 	}
 
 	request.Header.Set("Authorization", "Bearer "+key)
@@ -56,7 +48,7 @@ func Ask(text string) string {
 	if err != nil {
 		fmt.Println("request proccesing failed :/")
 		fmt.Println(err)
-		os.Exit(4)
+		os.Exit(5)
 	}
 	defer response.Body.Close()
 
