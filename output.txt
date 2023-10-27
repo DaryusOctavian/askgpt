@@ -1,0 +1,14 @@
+map[choices:
+    [map[finish_reason:stop
+        index:0
+        message:
+        map[content:
+            Hello! How can I assist you today? role:assistant]
+        ]
+    ]
+    created:1.698352923e+09
+    id:chatcmpl-8E1T1AM3ggaLpi8rY7oBbG9eZiKuM
+    model:gpt-4-0613
+    object:chat.completion
+    usage:map[completion_tokens:9 prompt_tokens:12 total_tokens:21]
+]
