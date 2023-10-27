@@ -14,13 +14,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	keyFile, err := os.ReadFile("./key.txt")
-	if err != nil {
-		fmt.Println("failed to read key from key.txt :/")
-		fmt.Println(err)
-		os.Exit(2)
-	}
-	key := string(keyFile)
+	key := os.Getenv("OPENAI_API_KEY")
 
 	fmt.Println(request.Ask(strings.Join(args[1:], " "), key))
 }
