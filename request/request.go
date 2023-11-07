@@ -8,16 +8,6 @@ import (
 	"os"
 )
 
-type Message struct {
-	Role    string `json:"role"`
-	Content string `json:"content"`
-}
-
-type RequestPayload struct {
-	Model    string    `json:"model"`
-	Messages []Message `json:"messages"`
-}
-
 func Ask(text string, key string) string {
 	url := "https://api.openai.com/v1/chat/completions"
 
