@@ -22,7 +22,7 @@ func Ask(text string, key string) string {
 	url := "https://api.openai.com/v1/chat/completions"
 
 	payload := RequestPayload{
-		Model:    "gpt-4",
+		Model:    "gpt-4-1106-preview",
 		Messages: []Message{{Role: "user", Content: text}},
 	}
 
