@@ -1,5 +1,9 @@
 package request
 
+type Configuration struct {
+	Model string `json:"model"`
+}
+
 type Message struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`

@@ -11,8 +11,32 @@ import (
 func Ask(text string, key string) string {
 	url := "https://api.openai.com/v1/chat/completions"
 
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println("failed to get home directory :/")
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	conf, err := os.ReadFile(home + "/.local/share/askgpt/config.json")
+	if err != nil {
+		fmt.Println("could not locate config.json file in ~/.local/share/askgpt, please create it :/")
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	config := Configuration{
+		Model: "gpt-4-1106-preview",
+	}
+	err = json.Unmarshal(conf, &config)
+	if err != nil {
+		fmt.Println("bad config file :/")
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	payload := RequestPayload{
-		Model:    "gpt-4-1106-preview",
+		Model:    config.Model,
 		Messages: []Message{{Role: "user", Content: text}},
 	}
 
@@ -20,7 +44,7 @@ func Ask(text string, key string) string {
 	if err != nil {
 		fmt.Println("json creation failed :/")
 		fmt.Println(err)
-		os.Exit(3)
+		os.Exit(1)
 	}
 
 	client := &http.Client{}
@@ -28,7 +52,7 @@ func Ask(text string, key string) string {
 	if err != nil {
 		fmt.Println("request creation failed :/")
 		fmt.Println(err)
-		os.Exit(4)
+		os.Exit(1)
 	}
 
 	request.Header.Set("Authorization", "Bearer "+key)
@@ -38,7 +62,7 @@ func Ask(text string, key string) string {
 	if err != nil {
 		fmt.Println("request proccesing failed :/")
 		fmt.Println(err)
-		os.Exit(5)
+		os.Exit(1)
 	}
 	defer response.Body.Close()
 
